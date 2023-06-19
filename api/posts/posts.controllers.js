@@ -41,3 +41,11 @@ exports.fetchPost = async (postId) => {
   const foundPost = await Post.findById(postId);
   return foundPost;
 };
+
+exports.postbyId = (req, res, next) => {
+  try {
+    return res.status(200).json(req.post);
+  } catch (error) {
+    return next(error);
+  }
+};
