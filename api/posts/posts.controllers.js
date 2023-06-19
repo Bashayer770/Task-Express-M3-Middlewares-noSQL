@@ -2,6 +2,9 @@ const Post = require("../../models/Post");
 
 exports.postsCreate = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = `${req.file.path}`;
+    }
     const newPost = await Post.create(req.body);
     res.status(201).json(newPost);
   } catch (error) {
@@ -10,7 +13,6 @@ exports.postsCreate = async (req, res, next) => {
 };
 
 exports.postsDelete = async (req, res, next) => {
-  const { postId } = req.params;
   try {
     await req.post.deleteOne(req.body);
     return res.status(204).end();
